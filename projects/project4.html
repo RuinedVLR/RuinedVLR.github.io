@@ -24,7 +24,12 @@
     <section id="main" class="wrapper">
       <div class="inner project-page">
         <div class="project-hero">
-          <img class="hero-media" src="/images/project4.png" alt="My FPS Controller preview" />
+          <video class="hero-media" playsinline muted loop autoplay poster="/images/project4.png">
+            <source src="/videos/project4.webm" type="video/webm">
+            <source src="/videos/project4.mp4" type="video/mp4">
+            <!-- fallback -->
+            <img src="/images/project4.png" alt="FPS-Controller preview" />
+          </video>
         </div>
 
         <header class="project-header">
