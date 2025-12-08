@@ -1,29 +1,40 @@
-// projects.js
-// Небольшая логика для переключения между статичной превью и GIF (опционально).
-// По умолчанию в HTML в src указана GIF; data-static содержит статичную PNG/ JPG.
-// Скрипт ставит статичную картинку на мобильных устройствах для экономии трафика,
-// и включает GIF при наведении (hover) на десктопе.
+// Lazy-load видео и автоплей/пауза в зависимости от видимости карточки
+document.addEventListener('DOMContentLoaded', function() {
+  const videos = document.querySelectorAll('.project-video');
 
-(function() {
-  const media = document.querySelectorAll('.project-media');
+  // IntersectionObserver: когда видео попадает в viewport — подставляем источники и запускаем.
+  const onIntersect = (entries, obs) => {
+    entries.forEach(entry => {
+      const v = entry.target;
+      if (entry.isIntersecting) {
+        // Если источники ещё не подставлены, подставим их из data-атрибутов
+        if (!v.querySelector('source')) {
+          const webm = v.dataset.srcWebm || v.getAttribute('data-src-webm');
+          const mp4 = v.dataset.srcMp4 || v.getAttribute('data-src-mp4');
+          if (webm) {
+            const s1 = document.createElement('source');
+            s1.src = webm; s1.type = 'video/webm';
+            v.appendChild(s1);
+          }
+          if (mp4) {
+            const s2 = document.createElement('source');
+            s2.src = mp4; s2.type = 'video/mp4';
+            v.appendChild(s2);
+          }
+          // загрузим новый источник
+          v.load();
+        }
 
-  // На mobile: подставим статичную превью (если она задана) вместо GIF, чтобы не грузить автоплей
-  const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
-  media.forEach(img => {
-    const staticSrc = img.dataset.static;
-    const gifSrc = img.dataset.gif;
-
-    if (isTouch && staticSrc) {
-      img.src = staticSrc;
-    } else {
-      // Desktop: поведение hover - показать статичный по умолчанию (если захотите) и GIF по наведению:
-      if (staticSrc) {
-        // Начинаем с GIF (если src уже GIF, то оставляем); если хотите начать со статик — раскомментируйте следующую строку:
-        // img.src = staticSrc;
-        // Переключаемся на GIF при hover
-        img.addEventListener('mouseenter', () => { if (gifSrc) img.src = gifSrc; });
-        img.addEventListener('mouseleave', () => { if (staticSrc) img.src = staticSrc; });
+        // Попытка autoplay (видео muted => обычно разрешено)
+        v.play().catch(() => {/* silent */});
+      } else {
+        // Если видео вышло из зоны — ставим на паузу и возвращаем в начало, чтобы не грузить CPU
+        try { v.pause(); v.currentTime = 0; } catch(e) { /* ignore */ }
       }
-    }
-  });
-})();
+    });
+  };
+
+  // threshold: 0.45 — видео считается видимым, когда ~45% его видно
+  const observer = new IntersectionObserver(onIntersect, { threshold: 0.45 });
+  videos.forEach(v => observer.observe(v));
+});
