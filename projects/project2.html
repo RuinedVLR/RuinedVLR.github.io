@@ -24,7 +24,12 @@
     <section id="main" class="wrapper">
       <div class="inner project-page">
         <div class="project-hero">
-          <img class="hero-media" src="/images/project2.png" alt="Grave Grab preview" />
+          <video class="hero-media" playsinline muted loop autoplay poster="/images/project2.png">
+            <source src="/videos/project2.webm" type="video/webm">
+            <source src="/videos/project2.mp4" type="video/mp4">
+            <!-- fallback -->
+            <img src="/images/project2.png" alt="GraveGrab preview" />
+          </video>
         </div>
 
         <header class="project-header">
