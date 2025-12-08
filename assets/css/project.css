@@ -1,0 +1,91 @@
+/* project.css — стили для страниц проекта (используют цвета и типографику main.css)
+   Поддерживают:
+   - большой hero (video/img),
+   - строка About + Project Info,
+   - контентные секции и сетка мини‑скринов.
+*/
+
+/* общий контейнер страницы */
+.project-page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem 3rem;
+  color: rgba(255,255,255,0.92);
+}
+
+/* HERO */
+.project-hero {
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #0b0b0b;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  margin-bottom: 1rem;
+}
+.project-hero .hero-media,
+.project-hero img.hero-media,
+.project-hero video.hero-media {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  object-fit: cover;
+}
+
+/* Заголовок проекта */
+.project-header h1 {
+  margin: 0.6rem 0 0.25rem;
+  color: #fff;
+  font-size: 1.9rem;
+}
+.project-tagline {
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 0.75rem;
+}
+
+/* About + Project Info row */
+.project-info-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.card {
+  background: rgba(0,0,0,0.45);
+  padding: 0.9rem;
+  border-radius: 6px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+}
+.card h3 { margin: 0 0 0.5rem; color: #ffd7e8; }
+
+/* контент секций */
+.project-body h2 { margin: 1rem 0 0.6rem; color: #fff; }
+.project-body p { color: rgba(255,255,255,0.78); line-height:1.6; }
+
+/* сетка мини‑скринов */
+.screenshot-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+.screenshot-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  display: block;
+  object-fit: cover;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+
+/* кнопки ссылки */
+.project-links { margin-top: 1rem; display:flex; gap:0.75rem; align-items:center; }
+
+/* адаптив */
+@media (max-width: 900px) {
+  .project-page { padding: 0.8rem; max-width: 720px; }
+  .project-info-row { grid-template-columns: 1fr; }
+  .screenshot-grid { grid-template-columns: 1fr; }
+  .project-hero .hero-media { max-height: 300px; }
+}
+
+/* использует цвета вашего main.css — при необходимости замените переменными */
