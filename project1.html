@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Project — Survive-A-Ball</title>
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/project.css" />
+</head>
+<body class="is-preload">
+
+  <!-- Header (тот же, что в остальных страницах) -->
+  <header id="header">
+    <a href="index.html" class="title">Roman</a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="generic.html">Bio</a></li>
+        <li><a href="index.html#three">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main -->
+  <div id="wrapper">
+    <section id="main" class="wrapper">
+      <div class="inner project-page">
+
+        <!-- Hero: видео/гиф/изображение -->
+        <div class="project-hero">
+          <!-- замените src/poster на ваши файлы -->
+          <video class="hero-media" playsinline muted loop autoplay poster="images/project1.png">
+            <source src="videos/project1.webm" type="video/webm">
+            <source src="videos/project1.mp4" type="video/mp4">
+            <!-- fallback -->
+            <img src="images/project1.png" alt="Survive-A-Ball preview" />
+          </video>
+        </div>
+
+        <!-- Заголовок + краткое -->
+        <header class="project-header">
+          <h1>Survive-A-Ball</h1>
+          <p class="project-tagline">Arcade / Survivors-like — мини‑игра, сделанная на Unity</p>
+        </header>
+
+        <!-- Info row: About + Project Info -->
+        <div class="project-info-row">
+          <div class="project-about card">
+            <h3>About</h3>
+            <p>Короткая сводка о проекте: цель, ваша роль, ключевые механики.</p>
+          </div>
+
+          <div class="project-meta card">
+            <h3>Project Info</h3>
+            <ul>
+              <li><strong>Role:</strong> Gameplay Programmer</li>
+              <li><strong>Engine:</strong> Unity</li>
+              <li><strong>Year:</strong> 2025</li>
+              <li><strong>Team:</strong> Solo</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Основные секции: intro, детали, скриншоты -->
+        <article class="project-body">
+          <section>
+            <h2>Introduction</h2>
+            <p>Здесь подробное описание проекта: идеи, что реализовано, какие технические/дизайнерские решения применялись.</p>
+          </section>
+
+          <section>
+            <h2>Wave Function Collapse (пример)</h2>
+            <p>Если вы используете какую‑то интересную технологию — опишите её здесь, добавьте код, ссылки или гиф/снимки.</p>
+
+            <div class="screenshot-grid">
+              <!-- мини‑скриншоты: замените на ваши файлы -->
+              <figure><img src="images/project1_thumb1.png" alt="screenshot 1"></figure>
+              <figure><img src="images/project1_thumb2.png" alt="screenshot 2"></figure>
+            </div>
+          </section>
+
+          <section class="project-links">
+            <a class="button primary" href="https://github.com/RuinedVLR/your-project-repo" target="_blank" rel="noopener">View code on GitHub</a>
+            <a class="button" href="projects.html">Back to projects</a>
+          </section>
+        </article>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer (тот же) -->
+  <footer id="footer" class="wrapper alt">
+    <div class="inner">
+      <ul class="menu">
+        <li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
