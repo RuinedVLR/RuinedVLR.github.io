@@ -1,11 +1,11 @@
 /* Центрированная 2x2 сетка проектов, увеличенные превью (видео) */
 
-/* Вьюпорт-обёртка —центрирует содержимое по вертикали и горизонтали */
+/* Вьюпорт-обёртка — центрирует содержимое по вертикали и горизонтали */
 .projects-viewport {
   display: flex;
   align-items: center;      /* вертикальное центрирование */
   justify-content: center;  /* горизонтальное центрирование */
-  min-height: calc(100vh - 160px); /* отнимаем место примерно для header+footer; при необходимости подкорректируйте */
+  min-height: calc(100vh - 160px); /* подгоните под высоту header+footer при необходимости */
   padding: 1rem 0;
   box-sizing: border-box;
 }
@@ -13,9 +13,9 @@
 /* Сетка 2 колонки, фиксированного и большого размера карточек */
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(420px, 1fr)); /* две колонки, каждая минимум 420px */
+  grid-template-columns: repeat(2, minmax(420px, 1fr)); /* две колонки */
   gap: 1.5rem;
-  width: min(1280px, 100%); /* максимум 1280px (2 карточки по ~620px включая gap) */
+  width: min(1280px, 100%);
   margin: 0 auto;
   justify-items: center;
   align-items: start;
@@ -24,17 +24,20 @@
 /* Карточка проекта — увеличенные размеры */
 .project-card {
   width: 100%;
-  max-width: 640px; /* каждая карточка может быть до 640px на широких экранах */
+  max-width: 720px; /* увеличено: больше видео */
   background: #121212;
   color: #eaeaea;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 6px 22px rgba(0,0,0,0.35);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.4);
   transition: transform .25s ease, box-shadow .25s ease;
 }
 
 /* Hover эффект */
-.project-card:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 12px 36px rgba(0,0,0,0.45); }
+.project-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 18px 48px rgba(0,0,0,0.5);
+}
 
 /* Превью 16:9 — видео/изображение заполняют блок и обрезаются по краям */
 .project-card .thumb {
@@ -49,7 +52,7 @@
 .project-card .thumb video.project-video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* гарантирует отсутствие чёрных полей (если они не встроены в файл) */
   display: block;
   transition: transform .35s ease;
 }
@@ -59,14 +62,15 @@
 
 /* Текст */
 .project-body { padding: 1rem; }
-.project-title { margin: 0 0 0.25rem 0; font-size: 1.15rem; color: #ffb3c6; }
-.project-desc { margin: 0; color: #cfcfcf; font-size: .98rem; line-height: 1.35; }
+.project-title { margin: 0 0 0.25rem 0; font-size: 1.25rem; color: #ffb3c6; }
+.project-desc { margin: 0 0.5rem 0 0; color: #cfcfcf; font-size: 1rem; line-height: 1.35; }
+.project-meta { font-size: 0.9rem; color: #9ea0a6; margin-top: 0.45rem; }
 
-/* Responsive: на узких экранах — одна колонка, видео занимают ширину и остаются крупными */
+/* Responsive: на узких экранах — одна колонка */
 @media (max-width: 1100px) {
   .project-grid { grid-template-columns: repeat(2, minmax(340px, 1fr)); width: min(980px, 100%); }
   .projects-viewport { min-height: calc(100vh - 140px); }
-  .project-card { max-width: 520px; }
+  .project-card { max-width: 580px; }
 }
 
 @media (max-width: 800px) {
