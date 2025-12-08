@@ -1,62 +1,67 @@
+/* Стили для карточек проектов и принудительного соотношения 16:9 для превью */
 
+/* Сетка 2x2 */
 .project-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  margin-top: 1.5rem;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
 }
 
+/* Карточка */
 .project-card {
-  background: #151515;
-  color: #ddd;
+  background: #121212;
+  color: #eaeaea;
   border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 6px 18px rgba(0,0,0,0.4);
 }
 
-/* (gif) */
+/* Блок превью: заставляем соотношение 16:9 */
+/* Современный способ: aspect-ratio */
 .project-card .thumb {
   display: block;
   width: 100%;
-  height: 200px;
+  aspect-ratio: 16 / 9; /* гарантирует 16:9 */
   overflow: hidden;
-  background: #000;
+  background: #000; /* подложка пока грузится */
 }
+
+/* Для старых браузеров (fallback) можно использовать padding-top trick */
+@supports not (aspect-ratio: 1/1) {
+  .project-card .thumb {
+    position: relative;
+    height: 0;
+    padding-top: 56.25%; /* 9/16 = 0.5625 = 56.25% */
+  }
+  .project-card .thumb img.project-media {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+  }
+}
+
+/* Само изображение — заполняет контейнер и обрезается по краям при необходимости */
 .project-card .thumb img.project-media {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* важное: обрезает по краям, убирает чёрные полосы */
   display: block;
-  transition: transform .4s ease;
+  transition: transform .35s ease;
 }
 
+/* Лёгкий зум при hover */
 .project-card:hover .thumb img.project-media {
   transform: scale(1.03);
 }
 
+/* Текст */
 .project-body {
-  padding: 1rem;
-  background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.05));
+  padding: 0.9rem 1rem;
 }
-.project-title {
-  margin: 0 0 0.25rem 0;
-  font-size: 1.1rem;
-  color: #ffb3c6;
-}
-.project-title a { color: inherit; text-decoration: none; }
-.project-desc {
-  margin: 0 0 0.5rem 0;
-  color: #cfcfcf;
-  font-size: 0.95rem;
-  line-height: 1.3;
-}
-.project-meta {
-  font-size: 0.85rem;
-  color: #a0a0a0;
-}
+.project-title { margin: 0 0 0.25rem 0; font-size: 1.05rem; color: #ffb3c6; }
+.project-desc { margin: 0; color: #cfcfcf; font-size: .95rem; line-height: 1.3; }
 
-/* mobile */
+/* Responsive */
 @media (max-width: 900px) {
   .project-grid { grid-template-columns: 1fr; }
-  .project-card .thumb { height: 180px; }
 }
