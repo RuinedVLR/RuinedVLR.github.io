@@ -1,6 +1,4 @@
-/* project.css — стили для страниц проекта (используют цвета и типографику main.css)
-   Root-relative шаблон: пути в HTML ссылаются на /assets/, /images/, /videos/
-*/
+/* project.css — стили для страниц проекта and generic footer button alignment */
 
 /* общий контейнер страницы */
 .project-page {
@@ -74,8 +72,44 @@
   box-shadow: 0 6px 18px rgba(0,0,0,0.4);
 }
 
-/* кнопки ссылки */
-.project-links { margin-top: 1rem; display:flex; gap:0.75rem; align-items:center; }
+/* кнопки ссылки (внутри контента) */
+.project-links {
+  margin-top: 1.25rem;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+/* кнопки внизу страницы, выровненные по отступам контента */
+.page-footer-buttons {
+  width: 100%;
+  max-width: 980px;
+  margin: 2.0rem auto;
+  padding: 0 1.25rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.75rem;
+}
+
+/* Кнопки: базовый стиль */
+.button {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  border-radius: 28px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+/* Вариации */
+.button.primary { background: #ffb3c6; color: #1b0b12; border-color: transparent; }
+.button.outline { background: transparent; color: rgba(255,255,255,0.9); border-color: rgba(255,255,255,0.12); }
 
 /* адаптив */
 @media (max-width: 900px) {
@@ -83,6 +117,5 @@
   .project-info-row { grid-template-columns: 1fr; }
   .screenshot-grid { grid-template-columns: 1fr; }
   .project-hero .hero-media { max-height: 300px; }
+  .page-footer-buttons, .project-links { padding: 0 0.8rem; max-width: 100%; margin-left: 0; margin-right: 0; }
 }
-
-/* Используют цвета вашего main.css — при необходимости замените на переменные */
