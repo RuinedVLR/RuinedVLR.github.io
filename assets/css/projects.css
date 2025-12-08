@@ -1,7 +1,12 @@
-/* Центрирование сетки: margin:0 auto — надёжно центрирует внутри контейнера,
-   и визуально будет выровнено под заголовком. Убрано позиционирование через left/transform. */
+/* Адаптивная сетка: карточки растут вместе с разрешением экрана.
+   Основная идея:
+   - задаём ширину колонок через clamp(), чтобы они увеличивались с vw,
+     но имели разумные min/max.
+   - центрируем сетку margin:0 auto.
+   - сохраняем 16:9 превью через aspect-ratio и object-fit:cover.
+*/
 
-/* Обёртка — оставляем выравнивание по центру */
+/* Вьюпорт-обёртка — центрирует по вертикали/горизонтали */
 .projects-viewport {
   display: flex;
   align-items: center;
@@ -10,33 +15,29 @@
   padding: 1rem 0;
   box-sizing: border-box;
   width: 100%;
-  position: relative;
 }
 
-/* Сетка: фиксируем/ограничиваем ширину и центрируем стандартным методом */
+/* Сетка: две колонки, размеры колонок масштабируются с viewport */
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(420px, 1fr));
+
+  /* Колонки: каждая колонка будет от 300px до 900px, причем 40vw задаёт рост с шириной окна.
+     Подбирайте 40vw/45vw по желанию для более агрессивного роста. */
+  grid-template-columns: repeat(2, clamp(300px, 40vw, 900px));
+
   gap: 1.5rem;
-
-  /* ширина сетки: максимум 1280px, но не больше доступного пространства */
-  width: min(1280px, 100%);
-
-  /* стандартная и надёжная центровка */
-  margin: 0 auto !important;
-
-  /* удаляем агрессивное позиционирование, если оно осталось */
-  left: auto !important;
-  transform: none !important;
-
+  width: min(1820px, 100%);    /* максимальная ширина всей сетки */
+  margin: 0 auto;             /* центрируем по горизонтали */
   justify-items: center;
   align-items: start;
+  box-sizing: border-box;
+  padding: 0 1rem;
 }
 
-/* Карточка проекта */
+/* Карточка проекта: она занимает всю ширину колонки и масштабируется вместе с ней */
 .project-card {
   width: 100%;
-  max-width: 720px;
+  max-width: none; /* ограничение мы контролируем колонками grid */
   background: #121212;
   color: #eaeaea;
   border-radius: 10px;
@@ -44,57 +45,78 @@
   box-shadow: 0 8px 28px rgba(0,0,0,0.4);
   transition: transform .25s ease, box-shadow .25s ease;
 }
+
+/* Hover эффект */
 .project-card:hover {
-  transform: translateY(-10px) scale(1.02);
+  transform: translateY(-8px) scale(1.02);
   box-shadow: 0 18px 48px rgba(0,0,0,0.5);
 }
+
+/* Превью 16:9 — видео/изображение заполняют блок и обрезаются по краям */
 .project-card .thumb {
-  display:block;
-  width:100%;
-  aspect-ratio:16/9;
-  overflow:hidden;
-  background:#000;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
 }
+
 .project-card .thumb img.project-media,
 .project-card .thumb video.project-video {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
   transition: transform .35s ease;
 }
-.project-body { padding:1rem; }
-.project-title { margin:0 0 .25rem 0; font-size:1.25rem; color:#ffb3c6; }
-.project-desc { margin:0 0.5rem 0 0; color:#cfcfcf; font-size:1rem; line-height:1.35; }
-.project-meta { font-size:.9rem; color:#9ea0a6; margin-top:.45rem; }
 
-/* Responsive */
-@media (max-width: 1100px) {
-  .project-grid {
-    grid-template-columns: repeat(2, minmax(340px, 1fr));
-    width: min(980px, 100%);
-    margin: 0 auto !important;
-  }
-  .projects-viewport { min-height: calc(100vh - 140px); }
-  .project-card { max-width: 580px; }
+.project-card .thumb:hover img.project-media,
+.project-card .thumb:hover video.project-video {
+  transform: scale(1.03);
 }
 
-@media (max-width: 800px) {
+/* Текст */
+.project-body { padding: 1rem; }
+.project-title { margin: 0 0 0.25rem 0; font-size: 1.25rem; color: #ffb3c6; }
+.project-desc { margin: 0 0.5rem 0 0; color: #cfcfcf; font-size: 1rem; line-height: 1.35; }
+.project-meta { font-size: .9rem; color: #9ea0a6; margin-top: .45rem; }
+
+/* Медиа‑запросы: дополнительные настройки для разных диапазонов экранов */
+
+/* Большие экраны — даём больший потолок и чуть увеличиваем gap */
+@media (min-width: 1600px) {
+  .project-grid {
+    grid-template-columns: repeat(2, clamp(420px, 36vw, 980px));
+    gap: 2rem;
+    width: min(1820px, 100%);
+  }
+  .project-title { font-size: 1.35rem; }
+}
+
+/* Средние экраны — стандартное поведение (уже покрыто clamp) */
+@media (max-width: 1200px) {
+  .project-grid {
+    grid-template-columns: repeat(2, clamp(300px, 42vw, 720px));
+    gap: 1.5rem;
+    width: min(1200px, 100%);
+  }
+}
+
+/* На узких экранах — одна колонка для удобства */
+@media (max-width: 880px) {
   .project-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
     width: 100%;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding: 0 0.8rem;
+    padding: 0 1rem;
   }
+  .project-card { transform: none; }
   .projects-viewport { min-height: auto; padding: 2rem 0; }
-  .project-card { max-width: 100%; }
 }
 
 /* Фолбэк для браузеров без aspect-ratio */
 @supports not (aspect-ratio: 1/1) {
   .project-card .thumb { position: relative; height: 0; padding-top: 56.25%; }
   .project-card .thumb img.project-media,
-  .project-card .thumb video.project-video { position: absolute; top:0; left:0; width:100%; height:100%; }
+  .project-card .thumb video.project-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 }
