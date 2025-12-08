@@ -1,7 +1,7 @@
-/* Центрирование сетки относительно viewport (устойчиво к сдвигам .inner / sidebar).
-   Поставьте этот файл в assets/css/projects.css или вставьте в DevTools для теста. */
+/* Центрирование сетки: margin:0 auto — надёжно центрирует внутри контейнера,
+   и визуально будет выровнено под заголовком. Убрано позиционирование через left/transform. */
 
-/* Вьюпорт-обёртка — центрирует содержимое по вертикали и горизонтали */
+/* Обёртка — оставляем выравнивание по центру */
 .projects-viewport {
   display: flex;
   align-items: center;
@@ -13,33 +13,27 @@
   position: relative;
 }
 
-/* Сетка: фиксируем ширину и позиционируем через viewport-координаты,
-   чтобы избежать смещения из-за .inner/sidebar */
+/* Сетка: фиксируем/ограничиваем ширину и центрируем стандартным методом */
 .project-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(420px, 1fr));
   gap: 1.5rem;
 
-  /* фиксируем ширину сетки */
+  /* ширина сетки: максимум 1280px, но не больше доступного пространства */
   width: min(1280px, 100%);
-  max-width: 1280px;
 
-  /* Позиционируем сетку точно по центру viewport:
-     left: 50vw ставит левую точку в середину viewport,
-     translateX(-50%) сдвигает сам элемент влево на половину его ширины. */
-  position: relative;
-  left: 50vw;
-  transform: translateX(-50%);
+  /* стандартная и надёжная центровка */
+  margin: 0 auto !important;
 
-  /* убираем margin, чтобы не было конфликтов с предыдущими правилами */
-  margin-left: 0 !important;
-  margin-right: 0 !important;
+  /* удаляем агрессивное позиционирование, если оно осталось */
+  left: auto !important;
+  transform: none !important;
 
   justify-items: center;
   align-items: start;
 }
 
-/* Карточки и превью (оставляем ваши существующие стили) */
+/* Карточка проекта */
 .project-card {
   width: 100%;
   max-width: 720px;
@@ -54,24 +48,32 @@
   transform: translateY(-10px) scale(1.02);
   box-shadow: 0 18px 48px rgba(0,0,0,0.5);
 }
-.project-card .thumb { display:block; width:100%; aspect-ratio:16/9; overflow:hidden; background:#000; }
+.project-card .thumb {
+  display:block;
+  width:100%;
+  aspect-ratio:16/9;
+  overflow:hidden;
+  background:#000;
+}
 .project-card .thumb img.project-media,
-.project-card .thumb video.project-video { width:100%; height:100%; object-fit:cover; display:block; transition: transform .35s ease; }
+.project-card .thumb video.project-video {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition: transform .35s ease;
+}
 .project-body { padding:1rem; }
 .project-title { margin:0 0 .25rem 0; font-size:1.25rem; color:#ffb3c6; }
 .project-desc { margin:0 0.5rem 0 0; color:#cfcfcf; font-size:1rem; line-height:1.35; }
 .project-meta { font-size:.9rem; color:#9ea0a6; margin-top:.45rem; }
 
-/* адаптив — на узких экранах вернём обычную центрировку в потоке */
+/* Responsive */
 @media (max-width: 1100px) {
   .project-grid {
     grid-template-columns: repeat(2, minmax(340px, 1fr));
     width: min(980px, 100%);
-    max-width: 980px;
-
-    /* для меньшей ширины используем ту же схему центрирования по viewport */
-    left: 50vw;
-    transform: translateX(-50%);
+    margin: 0 auto !important;
   }
   .projects-viewport { min-height: calc(100vh - 140px); }
   .project-card { max-width: 580px; }
@@ -79,12 +81,9 @@
 
 @media (max-width: 800px) {
   .project-grid {
-    /* на мобильных оставляем нормальный поток (без left/transform) */
     grid-template-columns: 1fr;
     gap: 1rem;
     width: 100%;
-    left: auto !important;
-    transform: none !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
     padding: 0 0.8rem;
