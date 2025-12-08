@@ -1,12 +1,100 @@
+/* projects.css
+   Адаптивная 2/1 колонная сетка, центрирование и масштабирование карточек.
+   - Сетка центрируется шириной max-width и margin:auto
+   - Колонки: auto-fit minmax — карточки меняют размер под экран
+   - Карточки имеют max-width, и scale меняется по медиазапросам для визуального увеличения/уменьшения
+*/
+
+/* --- СЕТКА --- */
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  /* адаптивная сетка: сколько поместится колонок, столько и будет */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.25rem;
+  max-width: 1200px;   /* общая максимальная ширина блока проектов */
+  margin: 2rem auto;   /* центрируем сетку по горизонтали и даём отступ сверху/снизу */
+  padding: 0 1rem;
+  justify-items: center; /* карточки выравниваются по центру колонки */
+  align-items: start;
 }
+
+/* --- КАРТОЧКА ПРОЕКТА --- */
 .project-card {
-  background: #121212; color:#eee; border-radius:6px; overflow:hidden;
+  width: 100%;
+  max-width: 560px; /* ограничиваем максимальную ширину карточки */
+  background: #121212;
+  color: #eaeaea;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  transform-origin: center center;
+  transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s;
 }
-.thumb { width:100%; aspect-ratio:16/9; overflow:hidden; background:#000; display:block; }
-.project-video { width:100%; height:100%; object-fit:cover; display:block; }
-.project-body { padding:0.9rem 1rem; }
-@media (max-width:900px){ .project-grid{ grid-template-columns:1fr } }
+
+/* Плавный "подъём" при hover (дополнительно) */
+.project-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+}
+
+/* --- ПРЕВЬЮ (16:9) --- */
+.project-card .thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
+}
+
+.project-card .thumb img.project-media,
+.project-card .thumb video.project-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* заполняет контейнер, убирая черные поля */
+  display: block;
+  transition: transform .35s ease;
+}
+
+/* --- ТЕКСТОВАЯ ЧАСТЬ --- */
+.project-body {
+  padding: 0.9rem 1rem;
+}
+.project-title { margin: 0 0 .25rem 0; font-size: 1.05rem; color: #ffb3c6; }
+.project-desc { margin: 0; color: #cfcfcf; font-size: .95rem; line-height: 1.35; }
+
+/* --- МАСШТАБИРОВАНИЕ (проверенный и понятный подход через медиазапросы) --- */
+/* Малые экраны — чуть уменьшаем карточки, чтобы уместилось больше контента */
+@media (max-width: 480px) {
+  .project-card { transform: scale(0.94); }
+  .project-card:hover { transform: translateY(-4px) scale(0.96); }
+}
+
+/* Смартфоны / планшеты — нормальный размер */
+@media (min-width: 481px) and (max-width: 900px) {
+  .project-card { transform: scale(0.98); }
+  .project-card:hover { transform: translateY(-5px) scale(1.00); }
+}
+
+/* Большие экраны — немного увеличиваем карточки для выразительности */
+@media (min-width: 901px) {
+  .project-card { transform: scale(1); }
+}
+
+/* Очень большие экраны — увеличиваем карточку чуть больше */
+@media (min-width: 1400px) {
+  .project-card { transform: scale(1.03); }
+  .project-card:hover { transform: translateY(-8px) scale(1.06); }
+}
+
+/* --- РЕЗИНОВЫЙ ФОЛБЭК ДЛЯ БРАУЗЕРОВ БЕЗ aspect-ratio --- */
+@supports not (aspect-ratio: 1/1) {
+  .project-card .thumb { position: relative; height: 0; padding-top: 56.25%; }
+  .project-card .thumb img.project-media,
+  .project-card .thumb video.project-video { position: absolute; top:0; left:0; width:100%; height:100%; }
+}
+
+/* Mobile layout: один столбец */
+@media (max-width: 700px) {
+  .project-grid { grid-template-columns: 1fr; padding: 0 0.6rem; }
+  .project-card { max-width: 100%; }
+}
