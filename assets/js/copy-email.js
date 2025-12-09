@@ -38,10 +38,10 @@
       ta.setSelectionRange(0, ta.value.length);
       var ok = document.execCommand('copy');
       document.body.removeChild(ta);
-      if (ok) cb && cb('E‑mail скопирован: ' + text);
-      else cb && cb('Не удалось скопировать. Выделите и нажмите Ctrl+C');
+      if (ok) cb && cb('E‑mail copied: ' + text);
+      else cb && cb('Failed to copy.');
     } catch (e) {
-      cb && cb('Не удалось скопировать. Попробуйте вручную.');
+      cb && cb('Failed to copy.');
     }
   }
 
@@ -55,7 +55,7 @@
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(email).then(function () {
-        showToast('E‑mail скопирован: ' + email);
+        showToast('E‑mail copied: ' + email);
       }).catch(function () {
         fallbackCopy(email, showToast);
       });
