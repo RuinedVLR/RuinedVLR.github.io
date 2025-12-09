@@ -1,0 +1,37 @@
+/* copy-email.css — стили для toast уведомления при копировании e‑mail */
+
+/* базовый стиль toast (с учётом вашего тёмного фона) */
+.copy-toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  background: rgba(255,255,255,0.06);
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+  z-index: 99999;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+  opacity: 0;
+  transition: transform .22s ease, opacity .22s ease;
+  pointer-events: none;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+/* видимая стадия */
+.copy-toast--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* адаптив */
+@media (max-width: 640px) {
+  .copy-toast {
+    bottom: 18px;
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+}
