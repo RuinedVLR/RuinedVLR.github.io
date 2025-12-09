@@ -9,8 +9,10 @@
 		<title>Roman "Ruined" Zhurakhov</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<!-- copy-email CSS (новый файл) -->
+		<link rel="stylesheet" href="/assets/css/copy-email.css" />
+		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
 
@@ -118,8 +120,8 @@
 							<div class="split style1">
 								<section>
 
-									<!-- ========== ЗАМЕНИТЕ ЭТУ ФОРМУ ========== -->
-									<form action="https://formsubmit.co/rzhurakhov@gmail.com" method="POST" id="contact-form">
+									<!-- ========== ФОРМА (FormSubmit) ========== -->
+									<form action="https://formsubmit.co/youremail@example.com" method="POST" id="contact-form">
 										<div class="fields">
 											<div class="field half">
 												<label for="name">Name</label>
@@ -140,7 +142,7 @@
 										<input type="text" name="_honey" style="display:none" />
 
 										<!-- Опции FormSubmit -->
-										<!-- Замените /thank-you.html на нужный URL или удалите этот input -->
+										<!-- Замените /thank-you.html на нужный URL или удалите это поле -->
 										<input type="hidden" name="_next" value="https://ruinedvlr.github.io/thank-you.html" />
 										<input type="hidden" name="_captcha" value="false" />
 										<input type="hidden" name="_subject" value="New message from portfolio contact form" />
@@ -156,7 +158,8 @@
 									<ul class="contact">
 										<li>
 											<h3>Email</h3>
-											<a href="#">rzhurakhov@gmail.com</a>
+											<!-- ссылка для копирования, не ведёт никуда -->
+											<a href="#" class="copy-email" data-email="rzhurakhov@gmail.com" title="Click to copy email">rzhurakhov@gmail.com</a>
 										</li>
 										<li>
 											<h3>Social</h3>
@@ -185,13 +188,15 @@
 			</footer>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+			<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/assets/js/jquery.scrolly.min.js"></script>
+			<script src="/assets/js/browser.min.js"></script>
+			<script src="/assets/js/breakpoints.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
+			<!-- copy-email script (новый файл) -->
+			<script src="/assets/js/copy-email.js"></script>
 
 	</body>
 </html>
