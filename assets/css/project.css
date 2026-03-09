@@ -1,60 +1,121 @@
-/* ====== Восстановление старого стиля кнопок + корректное выравнивание ====== */
+/* project.css — стили для страниц проекта and generic footer button alignment */
 
-/* Блок кнопок внизу страницы: совпадает по ширине и отступам с .project-page/.inner */
+/* общий контейнер страницы */
+.project-page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem 3rem;
+  color: rgba(255,255,255,0.92);
+}
+
+/* HERO */
+.project-hero {
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #0b0b0b;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  margin-bottom: 1rem;
+}
+.project-hero .hero-media,
+.project-hero img.hero-media,
+.project-hero video.hero-media {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  object-fit: cover;
+}
+
+/* Заголовок проекта */
+.project-header h1 {
+  margin: 0.6rem 0 0.25rem;
+  color: #fff;
+  font-size: 1.9rem;
+}
+.project-tagline {
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 0.75rem;
+}
+
+/* About + Project Info row */
+.project-info-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.card {
+  background: rgba(0,0,0,0.45);
+  padding: 0.9rem;
+  border-radius: 6px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+}
+.card h3 { margin: 0 0 0.5rem; color: #ffd7e8; }
+
+/* контент секций */
+.project-body h2 { margin: 1rem 0 0.6rem; color: #fff; }
+.project-body p { color: rgba(255,255,255,0.78); line-height:1.6; }
+
+/* сетка мини‑скринов */
+.screenshot-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+.screenshot-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  display: block;
+  object-fit: cover;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+
+/* кнопки ссылки (внутри контента) */
+.project-links {
+  margin-top: 1.25rem;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+/* кнопки внизу страницы, выровненные по отступам контента */
 .page-footer-buttons {
-  max-width: 980px;            /* совпадает с .project-page */
-  margin: 2.0rem auto 2.5rem;  /* центрируем блок, но внутренний padding сдвинет кнопки */
-  padding: 0 1.25rem;          /* Тот же padding, что и в .project-page — отсюда и левый отступ */
+  width: 100%;
+  max-width: 980px;
+  margin: 2.0rem auto;
+  padding: 0 1.25rem;
   box-sizing: border-box;
   display: flex;
-  justify-content: flex-start; /* кнопки начинаются с левого края этого внутреннего контейнера */
+  justify-content: flex-start;
   gap: 0.75rem;
 }
 
-/* Базовый стиль "старой" кнопки (пил — светлая, закруглённая) */
+/* Кнопки: базовый стиль */
 .button {
   display: inline-block;
-  padding: 0.8rem 1.6rem;                    /* чуть больше, как было раньше */
-  border-radius: 40px;                       /* pill */
-  border: none;
-  background: #ffffff;                       /* белая кнопка */
-  color: #2b1730;                            /* тёмный текст (контраст) */
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  text-decoration: none;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.18);   /* лёгкая тень */
-  transition: transform .08s ease, box-shadow .12s ease, opacity .12s;
-}
-
-/* Primary (если вам нужен розовый/акцент) — пример */
-.button.primary {
-  background: #ffb3c6;   /* ваш акцентный цвет */
-  color: #1b0b12;
-  border: none;
-}
-
-/* Outline / прозрачная вариация (был у вас раньше) */
-.button.outline {
-  background: transparent;
-  color: rgba(255,255,255,0.95);
+  padding: 0.6rem 1.2rem;
+  border-radius: 28px;
   border: 1px solid rgba(255,255,255,0.12);
-  box-shadow: none;
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.92rem;
 }
 
-/* Hover/active эффекты */
-.button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
-.button:active { transform: translateY(0); opacity: .95; }
+/* Вариации */
+.button.primary { background: #ffb3c6; color: #1b0b12; border-color: transparent; }
+.button.outline { background: transparent; color: rgba(255,255,255,0.9); border-color: rgba(255,255,255,0.12); }
 
-/* Иногда у вас есть уменьшенные/центровые кнопки — пример */
-.button.small { padding: 0.55rem 1rem; border-radius: 30px; font-size: .88rem; }
-
-/* На мобильных — уменьшить отступы и сделать блок full-width */
+/* адаптив */
 @media (max-width: 900px) {
-  .page-footer-buttons {
-    padding: 0 0.8rem;
-    margin: 1.5rem auto;
-    gap: 0.6rem;
-  }
-  .button { padding: 0.65rem 1.1rem; font-size: .9rem; }
+  .project-page { padding: 0.8rem; max-width: 720px; }
+  .project-info-row { grid-template-columns: 1fr; }
+  .screenshot-grid { grid-template-columns: 1fr; }
+  .project-hero .hero-media { max-height: 300px; }
+  .page-footer-buttons, .project-links { padding: 0 0.8rem; max-width: 100%; margin-left: 0; margin-right: 0; }
 }
